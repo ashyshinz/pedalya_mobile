@@ -1,8 +1,8 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:pedalya_mobile/widgets/onboarding/welcome_widgets.dart';
 
 // ============================================================
-// PAGE 2 â€” YOUR RIDE. YOUR TIME.
+// PAGE 2 — YOUR RIDE. YOUR TIME.
 // ============================================================
 
 class WelcomeRentalPage extends StatelessWidget {
@@ -184,7 +184,7 @@ class WelcomeRentalPage extends StatelessWidget {
                           // ==================================
                           const Text(
                             'Reserve and rent a bike directly '
-                            'through Pedalya â€” no queue, no hassle. '
+                            'through Pedalya — no queue, no hassle. '
                             'Tap and ride.',
                             style: TextStyle(
                               color: Color(0xFFC2C3CF),
@@ -223,7 +223,7 @@ class WelcomeRentalPage extends StatelessWidget {
                                   width: double.infinity,
                                   child:
                                       WelcomeSecondaryButton(
-                                    label: 'â† Back',
+                                    label: '← Back',
                                     onTap: onBack,
                                   ),
                                 ),
