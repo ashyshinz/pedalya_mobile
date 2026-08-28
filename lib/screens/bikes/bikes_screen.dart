@@ -15,7 +15,6 @@ class Bikes extends StatefulWidget {
 }
 
 class _BikesState extends State<Bikes> {
-  String selectedFilter = 'All';
   String searchQuery = '';
 
   List<BikeVariantData> bikes = [];
@@ -192,29 +191,13 @@ class _BikesState extends State<Bikes> {
   }
 
   List<BikeVariantData> get filteredBikes {
-    return bikes.where((bike) {
-      bool matchesFilter = true;
+  final query = searchQuery.toLowerCase();
 
-      if (selectedFilter == 'Kids') {
-        matchesFilter =
-            bike.variant == BikeVariant.kids;
-      } else if (selectedFilter == 'Normal') {
-        matchesFilter =
-            bike.variant == BikeVariant.standard;
-      } else if (selectedFilter == 'Double') {
-        matchesFilter =
-            bike.variant == BikeVariant.doubleBike;
-      }
-
-      final query = searchQuery.toLowerCase();
-
-      final matchesSearch =
-          bike.name.toLowerCase().contains(query) ||
-          bike.id.toLowerCase().contains(query);
-
-      return matchesFilter && matchesSearch;
-    }).toList();
-  }
+  return bikes.where((bike) {
+    return bike.name.toLowerCase().contains(query) ||
+        bike.id.toLowerCase().contains(query);
+  }).toList();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -317,60 +300,6 @@ class _BikesState extends State<Bikes> {
           ),
 
           const SizedBox(height: 16),
-
-          // ======================================
-          // FILTERS
-          // ======================================
-
-          Wrap(
-            spacing: 9,
-            runSpacing: 9,
-            children: [
-              _BikeFilterChip(
-                label: 'All',
-                selected:
-                    selectedFilter == 'All',
-                onTap: () {
-                  setState(() {
-                    selectedFilter = 'All';
-                  });
-                },
-              ),
-
-              _BikeFilterChip(
-                label: 'Kids',
-                selected:
-                    selectedFilter == 'Kids',
-                onTap: () {
-                  setState(() {
-                    selectedFilter = 'Kids';
-                  });
-                },
-              ),
-
-              _BikeFilterChip(
-                label: 'Normal',
-                selected:
-                    selectedFilter == 'Normal',
-                onTap: () {
-                  setState(() {
-                    selectedFilter = 'Normal';
-                  });
-                },
-              ),
-
-              _BikeFilterChip(
-                label: 'Double',
-                selected:
-                    selectedFilter == 'Double',
-                onTap: () {
-                  setState(() {
-                    selectedFilter = 'Double';
-                  });
-                },
-              ),
-            ],
-          ),
 
           const SizedBox(height: 22),
 
@@ -552,54 +481,6 @@ class _BikesState extends State<Bikes> {
   }
 }
 
-class _BikeFilterChip extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _BikeFilterChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(30),
-      child: AnimatedContainer(
-        duration:
-            const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 18,
-          vertical: 11,
-        ),
-        decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFFAAD9BB)
-              : const Color(0xFF1A1D2E),
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            color: selected
-                ? const Color(0xFFAAD9BB)
-                : const Color(0xFF303347),
-          ),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: selected
-                ? const Color(0xFF171827)
-                : const Color(0xFFC6C8D1),
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _DarkBikesCard extends StatelessWidget {
   final BikeVariantData bike;
